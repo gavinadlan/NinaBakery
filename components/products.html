@@ -1,0 +1,132 @@
+<section id="products" class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <span
+        class="inline-block mb-4 bg-orange-100 text-orange-800 px-4 py-2 rounded-full text-sm font-medium"
+      >
+        Menu Favorit
+      </span>
+
+      <h2 class="text-4xl font-bold text-orange-900 mb-4">
+        Koleksi Kue Terlezat
+      </h2>
+
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Pilihan kue terbaik yang dibuat dengan resep rahasia dan cinta untuk
+        setiap momen spesial Anda
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="products-grid">
+      <!-- Products will be loaded by JavaScript -->
+      <div class="text-center col-span-full text-gray-500">
+        Loading products...
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Product data with placeholder images
+  const products = [
+    {
+      name: "Kue Ulang Tahun Custom",
+      price: "Rp 150.000 - 500.000",
+      description: "Kue ulang tahun dengan desain custom sesuai keinginan",
+      image: "assets/images/birthday-cake.jpg",
+    },
+    {
+      name: "Brownies Fudgy",
+      price: "Rp 45.000",
+      description: "Brownies coklat lembut dengan tekstur fudgy yang khas",
+      image: "assets/images/brownies.jpg",
+    },
+    {
+      name: "Red Velvet Cake",
+      price: "Rp 120.000",
+      description: "Kue red velvet lembut dengan cream cheese frosting",
+      image: "assets/images/red-velvet.jpg",
+    },
+    {
+      name: "Cupcakes Set",
+      price: "Rp 60.000",
+      description: "Set 6 cupcakes dengan berbagai rasa dan topping",
+      image: "assets/images/cupcakes.jpg",
+    },
+    {
+      name: "Cheesecake",
+      price: "Rp 85.000",
+      description: "Cheesecake creamy dengan berbagai pilihan topping",
+      image: "assets/images/cheesecake.jpg",
+    },
+    {
+      name: "Cookies Jar",
+      price: "Rp 35.000",
+      description: "Toples cookies homemade dengan berbagai varian rasa",
+      image: "assets/images/cookies.jpg",
+    },
+  ];
+
+  // Render products function
+  function renderProducts() {
+    const grid = document.getElementById("products-grid");
+    if (!grid) {
+      console.error("Products grid element not found");
+      return;
+    }
+
+    console.log("Rendering products...");
+
+    grid.innerHTML = products
+      .map(
+        (product) => `
+        <div class="bg-white rounded-lg shadow-lg border border-orange-100 hover:border-orange-200 hover:shadow-xl transition-all duration-300 overflow-hidden">
+            <div class="relative overflow-hidden">
+                <img src="${product.image}" 
+                     alt="${product.name}" 
+                     class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                     onerror="this.src='https://via.placeholder.com/400x300/f97316/white?text=Kue+Lezat'">
+                <div class="absolute top-4 right-4">
+                    <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-medium">Populer</span>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="text-xl font-bold text-orange-900 mb-2">${
+                  product.name
+                }</h3>
+                <p class="text-gray-600 mb-4">${product.description}</p>
+                <div class="flex items-center justify-between">
+                    <span class="text-2xl font-bold text-orange-600">${
+                      product.price
+                    }</span>
+                    <a href="https://wa.me/6281234567890?text=Halo, saya tertarik dengan ${encodeURIComponent(
+                      product.name
+                    )}" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 transform hover:scale-105">
+                        Pesan
+                    </a>
+                </div>
+            </div>
+        </div>
+    `
+      )
+      .join("");
+
+    console.log("Products rendered successfully");
+  }
+
+  // Make renderProducts globally available
+  window.renderProducts = renderProducts;
+
+  // Try to render immediately if DOM is ready
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      setTimeout(renderProducts, 200);
+    });
+  } else {
+    // DOM already loaded
+    setTimeout(renderProducts, 200);
+  }
+</script>
